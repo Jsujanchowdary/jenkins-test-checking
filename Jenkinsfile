@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     def stages = load 'stages.groovy'
-                    stages.checkoutStage()
+                    stages.checkoutStage('main')  // passing branch name
                 }
             }
         }
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     def stages = load 'stages.groovy'
-                    stages.buildStage()
+                    stages.buildStage('Release')  // passing build type
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     def stages = load 'stages.groovy'
-                    stages.unitTestStage()
+                    stages.unitTestStage('Regression')  // passing test suite
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     def stages = load 'stages.groovy'
-                    stages.staticAnalysisStage()
+                    stages.staticAnalysisStage('SonarQube')  // passing tool name
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     def stages = load 'stages.groovy'
-                    stages.deployStagingStage()
+                    stages.deployStagingStage('Staging-Env')  // passing environment
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script {
                     def stages = load 'stages.groovy'
-                    stages.deployProductionStage()
+                    stages.deployProductionStage('Prod-Env', 'v1.2.0')  // passing env & version
                 }
             }
         }
